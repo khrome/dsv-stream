@@ -1,0 +1,16 @@
+{
+    "name" : "dsv-stream",
+    "main" : "dsv.js",
+    "version" : "0.0.1",
+    "description": "large file, low memory footprint CSV parsing",
+    "keywords": [
+        "csv",
+        "tsv",
+        "dsv",
+        "stream",
+        "parse",
+        "large",
+        "files"
+    ],
+    "author": "Abbey Hawk Sparrow <@khrome> (http://patternweaver.com)",
+}
