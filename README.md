@@ -15,14 +15,16 @@ Here's a simple example (that ignores the benefits of streaming):
     var dsv = require('dsv-stream');
     var stream = fs.createReadStream('data.csv');
     var decomposer = new dsv.CSV();
-    stream.pipe(decomposer.writer());
     var rows = [];
+    var headers;
     decomposer.on('row', function(row){
-        rows.push(row)
+        if(!headers) headers = row;
+        else rows.push(dsv.rowToObject(row, headers));
     });
     decomposer.on('complete', function(){
         // do something with `rows`
     });
+    stream.pipe(decomposer.writer());
 ```
 
 Testing

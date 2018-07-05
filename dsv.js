@@ -34,5 +34,12 @@ module.exports = {
     SSV : function(){
         return new strangler.StreamDecomposer(options.SSV);
     },
+    rowToObject : function(row, headers){
+        var result = {};
+        headers.forEach(function(fieldName, index){
+            result[fieldName] = row[index] || null;
+        })
+        return result;
+    },
     options : options
 };

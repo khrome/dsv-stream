@@ -1,7 +1,7 @@
 {
     "name": "dsv-stream",
     "main": "dsv.js",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "large file, low memory footprint CSV parsing",
     "keywords": [
         "csv",
