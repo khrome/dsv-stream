@@ -1,7 +1,7 @@
 {
-    "name" : "dsv-stream",
-    "main" : "dsv.js",
-    "version" : "0.0.1",
+    "name": "dsv-stream",
+    "main": "dsv.js",
+    "version": "0.0.2",
     "description": "large file, low memory footprint CSV parsing",
     "keywords": [
         "csv",
@@ -12,5 +12,14 @@
         "large",
         "files"
     ],
-    "author": "Abbey Hawk Sparrow <@khrome> (http://patternweaver.com)"
+    "author": "Abbey Hawk Sparrow <@khrome> (http://patternweaver.com)",
+    "dependencies": {
+        "seed-random": "^2.2.0",
+        "strangler": "^1.1.0",
+        "uuid": "^3.3.2"
+    },
+    "devDependencies": {
+        "faker": "^4.1.0",
+        "should": "^13.2.1"
+    }
 }
