@@ -1,7 +1,7 @@
 {
     "name": "dsv-stream",
     "main": "dsv.js",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "large file, low memory footprint CSV parsing",
     "keywords": [
         "csv",
@@ -17,10 +17,10 @@
     "dependencies": {
         "seed-random": "^2.2.0",
         "strangler": "^1.1.0",
-        "uuid": "^3.3.2"
+        "uuid": "^3.3.2",
+        "faker": "4.1.0"
     },
     "devDependencies": {
-        "faker": "4.1.0",
         "should": "^13.2.1"
     }
 }
