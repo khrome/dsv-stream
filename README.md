@@ -9,22 +9,38 @@ Installation
 
 Usage
 -----
-Here's a simple example (that ignores the benefits of streaming):
+Here's a simple example that streams a CSV into a file as JSON, row by row:
 
 ```js
     var dsv = require('dsv-stream');
     var stream = fs.createReadStream('data.csv');
     var decomposer = new dsv.CSV();
-    var rows = [];
     var headers;
-    decomposer.on('row', function(row){
-        if(!headers) headers = row;
-        else rows.push(dsv.rowToObject(row, headers));
+    let outputFile = 'output.json'
+    fs.appendFile(outputFile, '[', function (err) {
+        if (err) throw err;
+        decomposer.on('row', function(row){
+            let trimmed = row.map((field) => field.trim());
+            let first = true;
+            if(!headers){
+                headers = trimmed;
+            }else{
+                let json = JSON.stringify(dsv.rowToObject(trimmed, headers));
+                if(first) first = false;
+                else json = ','+json;
+                fs.appendFile(outputFile, json, function (err){
+
+                });
+                rows.push(dsv.rowToObject(trimmed, headers));
+            }
+        });
+        decomposer.on('complete', function(){
+            fs.appendFile(outputFile, ']', function (err) {
+                //done, array of objects in `outputFile`
+            });
+        });
+        stream.pipe(decomposer.writer());
     });
-    decomposer.on('complete', function(){
-        // do something with `rows`
-    });
-    stream.pipe(decomposer.writer());
 ```
 
 Testing

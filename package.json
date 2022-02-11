@@ -1,12 +1,13 @@
 {
     "name": "dsv-stream",
     "main": "dsv.js",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "large file, low memory footprint CSV parsing",
     "keywords": [
         "csv",
         "tsv",
         "dsv",
+        "ssv",
         "stream",
         "parse",
         "large",
@@ -19,7 +20,7 @@
         "uuid": "^3.3.2"
     },
     "devDependencies": {
-        "faker": "^4.1.0",
+        "faker": "4.1.0",
         "should": "^13.2.1"
     }
 }

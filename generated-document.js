@@ -28,23 +28,23 @@ DSVGenerator.prototype.readableStream = function(){
         stream.Readable.call(this);
         var ob = this;
         setTimeout(function(){
-        generate(
-            dsv.options.type,
-            dsv.options.counts.rows,
-            dsv.options.counts.columns,
-            function(row, raw){
-                ob.emit('row', row, raw);
-                buffer.push(row);
-            },
-            function(){
-                setTimeout(function(){
-                     ob.emit('done');
-                    ob.streamFinished = true;
-                }, 1);
-            },
-            (dsv.options.seed)
-        );
-        }, 1);
+            generate(
+                dsv.options.type,
+                dsv.options.counts.rows,
+                dsv.options.counts.columns,
+                function(row, raw){
+                    ob.emit('row', row, raw);
+                    buffer.push(row);
+                },
+                function(){
+                    setTimeout(function(){
+                         ob.emit('done');
+                        ob.streamFinished = true;
+                    }, 1);
+                },
+                (dsv.options.seed)
+            );
+        }, 0);
     };
     util.inherits(TestStream, stream.Readable);
     var buffer = [];
@@ -97,7 +97,8 @@ var autoQuote = function(str, quote, quotables){
 var generate = function(type, numRows, numCols, rowCallback, finalCallback, seed){
     var cols = [];
     var row = [];
-    for(var lcv=0; lcv < numCols; lcv++) cols.push(randomColumn(Random.seed(seed)));
+    let randomGenerator = Random.seed(seed);
+    for(var lcv=0; lcv < numCols; lcv++) cols.push(randomColumn(randomGenerator));
     var options = dsv.options[type];
     cols.forEach(function(col){
         row.push(col.name)
@@ -106,28 +107,26 @@ var generate = function(type, numRows, numCols, rowCallback, finalCallback, seed
     var delimiter = options.delimiter || ',';
     var sentinels = [delimiter, '"', "'"];
     var writeRow = (r) => r.join(delimiter);
-    //setTimeout(function(){
-        rowCallback(writeRow(row)+(options.terminator||"\n"), row);
-        row = [];
-        for(var lcv=0; lcv < numRows; lcv++){
-            cols.forEach(function(col){
-                value = col.generate();
-                row.push((
-                    Array.isArray(value)?
-                    '"'+value.join(delimiter)+'"':
-                    autoQuote(value, '"', sentinels)
-                ));
-            });
-            if(lcv == numRows-1){
-                rowCallback(writeRow(row), row );
-                //setTimeout(function(){
-                    finalCallback();
-                //}, 1);
-            }else{
-                rowCallback(writeRow(row)+(options.terminator||"\n"), row );
-                row = [];
-            }
+    rowCallback(writeRow(row)+(options.terminator||"\n"), row);
+    row = [];
+    for(var lcv=0; lcv < numRows; lcv++){
+        cols.forEach(function(col){
+            value = col.generate();
+            row.push((
+                Array.isArray(value)?
+                '"'+value.join(delimiter)+'"':
+                autoQuote(value, '"', sentinels)
+            ));
+        });
+        if(lcv == numRows-1){
+            rowCallback(writeRow(row), row );
+            //setTimeout(function(){
+                finalCallback();
+            //}, 1);
+        }else{
+            rowCallback(writeRow(row)+(options.terminator||"\n"), row );
+            row = [];
         }
-    //}, 1);
+    }
 };
 module.exports = DSVGenerator;
