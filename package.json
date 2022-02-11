@@ -15,10 +15,12 @@
     ],
     "author": "Abbey Hawk Sparrow <@khrome> (http://patternweaver.com)",
     "dependencies": {
+        "dsv-delimiter-configurations": "0.0.1",
+        "fake-csv": "0.0.1",
+        "faker": "4.1.0",
         "seed-random": "^2.2.0",
         "strangler": "^1.1.0",
-        "uuid": "^3.3.2",
-        "faker": "4.1.0"
+        "uuid": "^3.3.2"
     },
     "devDependencies": {
         "should": "^13.2.1"

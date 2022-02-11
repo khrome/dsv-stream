@@ -2,7 +2,7 @@ var dsv = require('./dsv.js');
 var should = require("should");
 var uuid = require("uuid");
 var fs = require("fs");
-var GeneratedDocument = require('./generated-document');
+var GeneratedDocument = require('fake-csv');
 
 var seedList = [
     //'eee8a0ac-73ff-460f-8776-63c1bb764e59',
